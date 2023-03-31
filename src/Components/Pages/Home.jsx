@@ -69,10 +69,10 @@ export const Home = () => {
             </p>
           </div>
         </div>
-        <div className="">
-          <figure className="w-4/5">
+        <div className="bg-black/10 rounded">
+          <figure className="w-4/5 h-full ">
             <img
-              src="/src/assets/ProjectImage/img15.png"
+              src="src/assets/ProjectImage/img15.png"
               alt="Image"
               className="w-full h-full"
             />
