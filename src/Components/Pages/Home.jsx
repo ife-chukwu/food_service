@@ -69,10 +69,10 @@ export const Home = () => {
             </p>
           </div>
         </div>
-        <div className="bg-black/10 rounded">
-          <figure className="w-4/5 h-full ">
+        <div className="bg-black/5 rounded">
+          <figure className="w-4/5 h-full">
             <img
-              src="src/assets/ProjectImage/img15.png"
+              src="/public/ProjectImage/img15.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -99,7 +99,7 @@ export const Home = () => {
         <div className="">
           <figure className="w-4/5 h-full">
             <img
-              src="/src/assets/ProjectImage/img2.png"
+              src="/public/ProjectImage/img2.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -114,7 +114,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="/src/assets/ProjectImage/img3.png"
+                src="/public/ProjectImage/img3.png"
                 className="w-full h-full"
               />
             </figure>
@@ -129,7 +129,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="/src/assets/ProjectImage/img4.png"
+                src="/public/ProjectImage/img4.png"
                 className="w-full h-full"
               />
             </figure>
@@ -144,7 +144,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="/src/assets/ProjectImage/img16.png"
+                src="/public/ProjectImage/img16.png"
                 className="w-full h-full"
               />
             </figure>
