@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiStarSFill } from "react-icons/ri";
 import { Outlet } from "react-router-dom";
+import { Footer } from "./Footer";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -43,17 +44,17 @@ export const Home = () => {
   return (
     <div className="w-full h-auto pt-40">
       <div className="grid grid-cols-2 w-full gap-[10%] ">
-        <div className="flex pt-10 w-full ml-[20%]">
+        <div className="flex pt-10 ml-[20%]">
           <div className="flex flex-col">
-            <h1 className="w-3/4  font-extrabold text-5xl">
-              Beautiful food and takeaway,
-              <span className="text-[#13948d] ">Delivered </span>to your door
+            <h1 className="w-4/5  font-extrabold text-5xl">
+              Beautiful food & takeaway,
+              <span className="text-[#13948d]">Delivered </span>to your door
               step.
             </h1>
             <p className="w-4/5 mt-5 text-sm text-gray-600">
-              Piz Piz is the place to be for all pizza lovers! Our menu is
-              packed with mouth-watering options, from classic to gourmet. Come
-              by and grab a slice (or a whole pie) at Piz Piz today!
+              PizBug is the place to be for all pizza lovers! Our menu is packed
+              with mouth-watering options, from classic to gourmet. Come by and
+              grab a slice (or a whole pie) at PizBug today!
             </p>
 
             <button className="flex hover:bg-[#15aaa3] justify-center mt-10 rounded-xl items-center text-white duration-300 transition bg-[#13948d] w-[35%] md:w-1/4 h-[2.8rem] md:h-[3rem] text-sm">
@@ -69,7 +70,7 @@ export const Home = () => {
             </p>
           </div>
         </div>
-        <div className="bg-black/10 rounded">
+        <div>
           <figure className="w-4/5 h-full ">
             <img
               src="src/assets/ProjectImage/img15.png"
@@ -86,9 +87,9 @@ export const Home = () => {
               The home of fresh products
             </h1>
             <p className="w-4/5 mt-5 text-sm text-gray-600">
-              Piz Piz is the place to be for all pizza lovers! Our menu is
-              packed with mouth-watering options, from classic to gourmet. Come
-              by and grab a slice (or a whole pie) at Piz Piz today!
+              PizBug is the place to be for all pizza lovers! Our menu is packed
+              with mouth-watering options, from classic to gourmet. Come by and
+              grab a slice (or a whole pie) at PizBug today!
             </p>
 
             <button className="flex hover:bg-[#15aaa3] justify-center mt-10 rounded-xl items-center text-white duration-300 transition bg-[#13948d] w-[35%] md:w-1/4 h-[2.8rem] md:h-[3rem] text-sm">
@@ -209,9 +210,72 @@ export const Home = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mt-20">
           <Outlet />
         </div>
+      </div>
+      <div className="flex gap-5 w-full items-center justify-center">
+        <figure className="w-2/5">
+          <img src="/src/assets/ProjectImage/img14.png" />
+        </figure>
+        <div className="w-2/5">
+          <h1 className="font-extrabold text-[#13948d] text-5xl">
+            Order online with our simple checkout.
+          </h1>
+          <p className="mt-5 text-sm text-gray-600">
+            When I'm craving pizza, I always turn to PizBug. Their website is
+            super easy to use and you can choose from a variety of toppings to
+            make your perfect pie.
+          </p>
+          <button className="mt-10 mb-5 bg-[#13948d] text-white rounded px-7 py-3">
+            See our FAQ
+          </button>
+        </div>
+      </div>
+      <div className="flex gap-5 w-full items-center justify-center mt-20">
+        <div className="w-2/5">
+          <h1 className=" font-extrabold text-[#13948d] text-5xl">
+            Call our store and takeaway when it suits you best.{" "}
+          </h1>
+          <p className="mt-5 text-sm text-gray-600">
+            So why not give PizBug a call today and satisfy your cravings for
+            delicious pizza? Don't forget to mention any special requests or
+            dietary restrictions you may have they'll be happy to accommodate
+            your needs.
+          </p>
+          <button className="mt-10 mb-5 bg-[#13948d] text-white rounded px-7 py-3">
+            ph. +234-9157398241{" "}
+          </button>
+        </div>
+        <figure className="w-2/5">
+          <img src="/src/assets/ProjectImage/img21.png" />
+        </figure>
+      </div>
+
+      <div className="flex  justify-center gap-5 mt-40 mb-10">
+        <figure className="w-2/5 h-full">
+          <img
+            src="/src/assets/TestingImages/img2.jpg"
+            className="w-full -full"
+          />
+        </figure>
+        <div className="w-2/5 h-[22.3em] bg-[#13948d] mb-20">
+          <div className="w-full h-full flex items-center justify-center ">
+            <div className="w-3/4">
+              <h1 className="text-white text-4xl font-bold pl-[5%]">
+                <span className="text-[#1a635fc9]">Support</span> good food and
+                local business.
+              </h1>
+              <button className="ml-[5%] w-2/5 py-3 rounded-md bg-white hover:bg-white/80 transition  text-[#13948d] mt-8 font-medium">
+                <Link to="/order">Order Now</Link>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <Footer />
       </div>
     </div>
   );

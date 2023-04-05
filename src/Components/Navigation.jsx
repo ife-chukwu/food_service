@@ -17,9 +17,6 @@ export const Navigation = () => {
           scroll ? "bg-black/60" : ""
         } w-full h-[70px] flex justify-between items-center px-[6%] transition duration-300`}
       >
-        {/* <figure className="w-[7%] h-10">
-          <img src="/src/assets/Images/logo2.png" className="w-full h-full" />
-        </figure> */}
         <div>
           <Link to="/">
             {" "}
@@ -28,7 +25,7 @@ export const Navigation = () => {
                 scroll ? "text-[#42f8ef]" : "text-[#13948d]"
               } font-extrabold text-2xl log0 `}
             >
-              PIZ PIZ
+              PIZBUG
             </h1>
           </Link>
         </div>
