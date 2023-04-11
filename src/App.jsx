@@ -13,6 +13,11 @@ import { Drink } from "./Components/Pages/Drink";
 import { OurFood } from "./OurFood";
 import { OurDelivery } from "./Components/Pages/OurDelivery";
 import { OurCompany } from "./Components/Pages/OurCompany";
+import { FullMenu } from "./Components/Pages/FullMenu";
+import { OrderDrink } from "./Components/Pages/OrderDrink";
+import { OrderSides } from "./Components/Pages/OrderSides";
+import { Burgers } from "./Components/Pages/Burgers";
+import { ShowMenuDetail } from "./Components/Pages/ShowMenuDetail";
 
 function App() {
   const client = new QueryClient();
@@ -26,7 +31,12 @@ function App() {
             <Route path="/side" element={<Side />} />
             <Route path="/drink" element={<Drink />} />
           </Route>
-          <Route path="/order" element={<Order />} />
+          <Route path="/order" element={<Order />}>
+            <Route path="/order" element={<FullMenu />} />
+            <Route path="/order/order-drink" element={<OrderDrink />} />
+            <Route path="/order/order-side" element={<OrderSides />} />
+            <Route path="/order/burgers" element={<Burgers />} />
+          </Route>
           <Route path="/company" element={<Company />} />
           <Route path="/faq" element={<FAQ />}>
             <Route path="/faq" element={<OurFood />} />
@@ -35,7 +45,12 @@ function App() {
           </Route>
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<h1>Page not found!</h1>} />
+          <Route path="/order/:params" element={<ShowMenuDetail />} />
+          <Route path="/:params" element={<ShowMenuDetail />} />
+          <Route
+            path="*"
+            element={<h1 className="pt-40">Page not found!</h1>}
+          />
         </Routes>
       </QueryClientProvider>
     </div>

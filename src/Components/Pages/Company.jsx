@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Footer } from "./Footer";
 
 export const Company = () => {
+
+   useEffect(() => {
+     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+   }, []);
   return (
     <div className="pt-28">
       <div className="py-20 bg-[#def1f1] w-full flex justify-center ">

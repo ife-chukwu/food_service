@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import { context } from "../MyContext";
 
 export const Navigation = () => {
-  const { scroll } = useContext(context);
+  const { scroll, cartCount } = useContext(context);
+
   return (
     <div className="w-full  fixed overflow-x-hidden">
       <div className="w-full h-10 bg-[#13948d]">
@@ -72,6 +73,7 @@ export const Navigation = () => {
               />
             </li>
           </Link>
+       <p>{cartCount}</p>
         </ul>
       </div>
     </div>

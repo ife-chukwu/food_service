@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiStarSFill } from "react-icons/ri";
 import { Outlet } from "react-router-dom";
@@ -41,6 +41,10 @@ export const Home = () => {
     setActiveItem(item);
   };
 
+   useEffect(() => {
+     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+   }, []);
+
   return (
     <div className="w-full h-auto pt-40">
       <div className="grid grid-cols-2 w-full gap-[10%] ">
@@ -57,7 +61,7 @@ export const Home = () => {
               grab a slice (or a whole pie) at PizBug today!
             </p>
 
-            <button className="flex hover:bg-[#15aaa3] justify-center mt-10 rounded-xl items-center text-white duration-300 transition bg-[#13948d] w-[35%] md:w-1/4 h-[2.8rem] md:h-[3rem] text-sm">
+            <button className="flex hover:bg-[#15aaa3] justify-center mt-10 rounded-xl items-center text-white duration-300 transition bg-[#13948d] w-[35%] md:w-2/5 h-[2.8rem] md:h-[2.5rem] text-sm">
               <Link to="/order"> Place an Order</Link>
             </button>
             <div className="flex items-center mt-4">
@@ -92,7 +96,7 @@ export const Home = () => {
               grab a slice (or a whole pie) at PizBug today!
             </p>
 
-            <button className="flex hover:bg-[#15aaa3] justify-center mt-10 rounded-xl items-center text-white duration-300 transition bg-[#13948d] w-[35%] md:w-1/4 h-[2.8rem] md:h-[3rem] text-sm">
+            <button className="flex hover:bg-[#15aaa3] justify-center mt-10 rounded-xl items-center text-white duration-300 transition bg-[#13948d] w-[35%] md:w-2/5 h-[2.8rem] md:h-[2.5rem] text-sm">
               <Link to="/faq"> Learn about us</Link>
             </button>
           </div>

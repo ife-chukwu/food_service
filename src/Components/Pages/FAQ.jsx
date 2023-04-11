@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Outlet, Link } from "react-router-dom";
 
 export const FAQ = () => {
@@ -8,6 +8,9 @@ export const FAQ = () => {
     setActiveItem(item);
   };
 
+   useEffect(() => {
+     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+   }, []);
   return (
     <div className="pt-28">
       {" "}

@@ -1,28 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { context } from "../../MyContext";
+import {Footer} from '../Pages/Footer'
 
-export const Pizza = () => {
-  const { pizzas } = useContext(context);
+export const FullMenu = () => {
+  const { menuItems } = useContext(context);
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-2 gap-y-10 my-10">
-        {pizzas.map((pizza) => {
+    <div>
+      <div className="grid grid-cols-2 gap-y-10 my-20">
+        {menuItems.map((pizza) => {
           return (
-            <div key={pizza.id} className="flex justify-center">
-              <div className="w-4/5 py-5 bg-black/10 h-full px-5 rounded shadow-black/20 shadow-md">
-                <div className="flex gap-5">
-                  <figure className="w-2/5 h-full">
-                    <Link to={`${pizza.name}`}>
-                      <img
-                        src={pizza.img}
-                        alt="Image"
-                        className="w-full h-full rounded"
-                      />{" "}
-                    </Link>
-                  </figure>
-                  <div className="w-3/5">
-                    <div className="flex w-full justify-between text-[15px]">
+            <div key={pizza.id} className="flex justify-center items-center">
+              <div className="py-5 w-4/5 bg-black/10 px-5 rounded shadow-black/20 shadow-md">
+                <div className="flex h-full">
+                  <Link to={`${pizza.name}`}>
+                      <figure className="w-4/5 h-4/5">
+                        <img
+                          src={pizza.imageUrl}
+                          alt="Food Image"
+                          className="w-full h-full rounded"
+                        />
+                      </figure>
+                  </Link>
+                  <div className="w-full h-2/4">
+                    <div className="flex text-[15px]">
                       <p className="font-bold w-3/5">{pizza.name}</p>
                       <p className="text-[#13948d]">{pizza.price}</p>
                     </div>
@@ -45,10 +46,11 @@ export const Pizza = () => {
         })}
       </div>
       <div className="w-full justify-center flex">
-        <button className="mt-10 mb-5 bg-[#13948d] text-white rounded px-7 py-3">
+        <button className=" mb-10 bg-[#13948d] text-white rounded px-7 py-3">
           See Full Menu
         </button>
       </div>
+      <Footer/>
     </div>
   );
 };

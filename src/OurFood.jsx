@@ -49,9 +49,12 @@ export const OurFood = () => {
         {faqs.map((faq) => {
           const isExpanded = expandedAnswers[faq.id] || false;
           return (
-            <div key={faq.id} className="flex justify-between mx-[20%] mt-[3%]">
+            <div
+              key={faq.id}
+              className="flex justify-between mx-[20%] mt-[3%] border-b"
+            >
               <div>
-                <p className="font-bold text-[#13948d]">{faq.question}</p>
+                <p className="font-bold text-[#13948d] pb-4">{faq.question}</p>
                 {isExpanded && (
                   <div className="bg-[#e7faf8] w-4/5 rounded-2xl mt-5">
                     <p className="w-full leading-6 h-full flex items-center px-10 py-10 text-sm  text-justify text-gray-600">
