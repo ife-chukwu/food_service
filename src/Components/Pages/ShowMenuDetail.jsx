@@ -5,27 +5,32 @@ import { Footer } from "./Footer";
 import { AiFillLike } from "react-icons/ai";
 import { BsFillCartFill } from "react-icons/bs";
 import { Backdrop1 } from "./Backdrops/Backdrop1";
+import { MdClear } from "react-icons/md";
 
 export const ShowMenuDetail = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
-  const { menuItems, pizzas, addToCart, likes, buttonActive, handleButton } =
-    useContext(context);
+  const {
+    menuItems,
+    pizzas,
+    addToCart,
+    likes,
+    buttonActive,
+    handleButton,
+    cartReminder,
+  } = useContext(context);
   const { params } = useParams();
   console.log(menuItems["1"].name === params);
   console.log(params);
 
   return (
     <div>
-      <div>
-        <Backdrop1 />
-      </div>
       <div className="pt-40 w-full flex justify-center">
         <div>
           {pizzas
             .filter((item) => item.name === params)
-            .map((item) => {
+            .map((item, index) => {
               return (
                 <div key={item.id}>
                   <p className="w-full flex text-[#13948d] pb-5 justify-center font-extrabold text-2xl log0 ">
@@ -81,6 +86,10 @@ export const ShowMenuDetail = () => {
                         </div>
                       </div>
                     </div>
+                    <p className="flex justify-center pt-5 text-small font-extralight text-[red]">
+                      {cartReminder}
+                    </p>
+                    <Backdrop1 />
                     <h1 className="w-full flex justify-center mt-10 mb-5 font-bold text-[#13948d] text-xl">
                       About {item.name}
                     </h1>
@@ -90,15 +99,6 @@ export const ShowMenuDetail = () => {
                         {item.description}
                       </p>
                     </div>
-                    {/* <h1 className="w-full flex justify-center font-bold text-[#13948d] text-xl">
-                      More About {item.name}
-                    </h1>
-
-                    <div className="w-full flex justify-center mb-20">
-                      <p className="text-sm text-gray-600 text-center w-3/5">
-                        {item.extraInfo}
-                      </p>
-                    </div> */}
                   </div>
                 </div>
               );

@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { useState } from "react";
 
 const context = createContext();
@@ -40,6 +40,13 @@ const MyContext = ({ children }) => {
     } else {
       setLikes(null);
     }
+    if (likes) {
+      setLikes(likes);
+    }
+  };
+
+  const clearNotification = () => {
+    setCartCount(null);
   };
 
   const [cartCount, setCartCount] = useState(null);
@@ -49,14 +56,23 @@ const MyContext = ({ children }) => {
 
   const addToCart = (item) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
-    if (existingItem) {
-      setCartReminder("You already have item in you cart");
-      return cartItems;
-    } else {
-      const newCart = [...cartItems, item];
-      setCartItems(newCart);
-      return newCart;
-    }
+    const message = "You already have this in you cart";
+    setTimeout(() => {
+      if (existingItem) {
+        setCartReminder(message);
+        return cartItems;
+      } else {
+        const newCart = [...cartItems, item];
+        setCartItems(newCart);
+
+        setCartCount(cartCount + 1);
+
+        return newCart;
+      }
+    }, 500);
+    setTimeout(() => {
+      setCartReminder("");
+    }, 5000);
   };
 
   const menuItems = [
@@ -260,6 +276,7 @@ const MyContext = ({ children }) => {
           handleButton,
           cartCount,
           cartReminder,
+          clearNotification,
         }}
       >
         {children}

@@ -4,7 +4,7 @@ import { BsFillCartFill } from "react-icons/bs";
 import { context } from "../MyContext";
 
 export const Navigation = () => {
-  const { scroll, cartCount } = useContext(context);
+  const { scroll, cartCount, clearNotification } = useContext(context);
 
   return (
     <div className="w-full  fixed overflow-x-hidden">
@@ -68,12 +68,17 @@ export const Navigation = () => {
                   : "bg-[#13948d] hover:bg-[#12c9c0] transition duration-300"
               } py-2 px-3 rounded-sm `}
             >
-              <BsFillCartFill
-                className={`${scroll ? "text-black" : "text-white"} text-xl`}
-              />
+              <button onClick={clearNotification}>
+                {" "}
+                <BsFillCartFill
+                  className={`${scroll ? "text-black" : "text-white"} text-xl`}
+                />
+              </button>
             </li>
           </Link>
-       <p>{cartCount}</p>
+          <p className="-ml-[9%] text-white text-[10px] -mt-[7%] bg-[red] px-2 font-bold  rounded-full">
+            {cartCount}
+          </p>
         </ul>
       </div>
     </div>
