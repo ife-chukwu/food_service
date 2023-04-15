@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { RiStarSFill } from "react-icons/ri";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
 
 export const Home = () => {
   //   const options = useMemo(
