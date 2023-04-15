@@ -104,7 +104,7 @@ export const Home = () => {
         <div className="">
           <figure className="w-4/5 h-full">
             <img
-              src="/src/assets/ProjectImage/img2.png"
+              src="src/assets/ProjectImage/img2.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -119,7 +119,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="/src/assets/ProjectImage/img3.png"
+                src="src/assets/ProjectImage/img3.png"
                 className="w-full h-full"
               />
             </figure>
@@ -134,7 +134,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="/src/assets/ProjectImage/img4.png"
+                src="src/assets/ProjectImage/img4.png"
                 className="w-full h-full"
               />
             </figure>
@@ -149,7 +149,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="/src/assets/ProjectImage/img16.png"
+                src="src/assets/ProjectImage/img16.png"
                 className="w-full h-full"
               />
             </figure>
