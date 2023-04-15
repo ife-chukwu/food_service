@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { context } from "../../MyContext";
 
 export const Pizza = () => {
-  const { pizzas } = useContext(context);
+  const { pizzas, buttonActive } = useContext(context);
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 gap-y-10 my-10">
-        {pizzas.map((pizza) => {
+        {pizzas.map((pizza, index) => {
           return (
             <div key={pizza.id} className="flex justify-center">
               <div className="w-4/5 py-5 bg-black/10 h-full px-5 rounded shadow-black/20 shadow-md">
@@ -34,7 +34,7 @@ export const Pizza = () => {
                         {pizza.id}
                       </button>
                       <button className="border rounded border-black/10 px-7 py-1 text-sm bg-[#13948d] text-white">
-                        Order
+                        { pizza.id === buttonActive[2].isActive? "Ordered" : "Order"}
                       </button>
                     </div>
                   </div>

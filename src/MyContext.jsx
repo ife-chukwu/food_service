@@ -34,7 +34,7 @@ const MyContext = ({ children }) => {
     const isButtonTrue = [...buttonActive];
     isButtonTrue[index].isActive = !isButtonTrue[index].isActive;
     setButtonActive(isButtonTrue);
-
+ 
     if (isButtonTrue[0].isActive) {
       setLikes(likes + 1);
     } else {

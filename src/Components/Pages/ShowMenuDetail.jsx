@@ -30,7 +30,7 @@ export const ShowMenuDetail = () => {
         <div>
           {pizzas
             .filter((item) => item.name === params)
-            .map((item, index) => {
+            .map((item) => {
               return (
                 <div key={item.id}>
                   <p className="w-full flex text-[#13948d] pb-5 justify-center font-extrabold text-2xl log0 ">
