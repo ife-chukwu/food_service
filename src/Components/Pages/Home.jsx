@@ -77,7 +77,7 @@ export const Home = () => {
         <div>
           <figure className="w-4/5 h-full ">
             <img
-              src="src/assets/ProjectImage/img15.png"
+              src="src/assets/projectImage/img15.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -104,7 +104,7 @@ export const Home = () => {
         <div className="">
           <figure className="w-4/5 h-full">
             <img
-              src="src/assets/ProjectImage/img2.png"
+              src="src/assets/projectImage/img2.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -119,7 +119,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="src/assets/ProjectImage/img3.png"
+                src="src/assets/projectImage/img3.png"
                 className="w-full h-full"
               />
             </figure>
@@ -134,7 +134,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="src/assets/ProjectImage/img4.png"
+                src="src/assets/projectImage/img4.png"
                 className="w-full h-full"
               />
             </figure>
@@ -149,7 +149,7 @@ export const Home = () => {
           <div>
             <figure className="w-4/5">
               <img
-                src="src/assets/ProjectImage/img16.png"
+                src="src/assets/projectImage/img16.png"
                 className="w-full h-full"
               />
             </figure>
@@ -252,7 +252,7 @@ export const Home = () => {
           </button>
         </div>
         <figure className="w-2/5">
-          <img src="/src/assets/ProjectImage/img21.png" />
+          <img src="/src/assets/projectImage/img21.png" />
         </figure>
       </div>
 
