@@ -41,9 +41,9 @@ export const Home = () => {
     setActiveItem(item);
   };
 
-   useEffect(() => {
-     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-   }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div className="w-full h-auto pt-40">
@@ -77,7 +77,7 @@ export const Home = () => {
         <div>
           <figure className="w-4/5 h-full ">
             <img
-              src="src/assets/projectImage/img15.png"
+              src="projectImage/img15.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -104,7 +104,7 @@ export const Home = () => {
         <div className="">
           <figure className="w-4/5 h-full">
             <img
-              src="src/assets/projectImage/img2.png"
+              src="projectImage/img2.png"
               alt="Image"
               className="w-full h-full"
             />
@@ -118,10 +118,7 @@ export const Home = () => {
         <div className="grid grid-cols-3 ml-[5%]">
           <div>
             <figure className="w-4/5">
-              <img
-                src="src/assets/projectImage/img3.png"
-                className="w-full h-full"
-              />
+              <img src="projectImage/img3.png" className="w-full h-full" />
             </figure>
             <h2 className="flex justify-center w-4/5 font-extrabold text-gray-900 mt-8 text-xl mb-4">
               Accept your menu items
@@ -133,10 +130,7 @@ export const Home = () => {
           </div>
           <div>
             <figure className="w-4/5">
-              <img
-                src="src/assets/projectImage/img4.png"
-                className="w-full h-full"
-              />
+              <img src="projectImage/img4.png" className="w-full h-full" />
             </figure>
             <h2 className="flex justify-center w-4/5 font-extrabold text-gray-900 mt-8 text-xl mb-4">
               Accept online orders and takeout
@@ -148,10 +142,7 @@ export const Home = () => {
           </div>
           <div>
             <figure className="w-4/5">
-              <img
-                src="src/assets/projectImage/img16.png"
-                className="w-full h-full"
-              />
+              <img src="projectImage/img16.png" className="w-full h-full" />
             </figure>
             <h2 className="flex justify-center w-4/5 font-extrabold text-gray-900 mt-8 text-xl mb-4">
               Accept your menu items
@@ -220,7 +211,7 @@ export const Home = () => {
       </div>
       <div className="flex gap-5 w-full items-center justify-center">
         <figure className="w-2/5">
-          <img src="/src/assets/ProjectImage/img14.png" />
+          <img src="ProjectImage/img14.png" />
         </figure>
         <div className="w-2/5">
           <h1 className="font-extrabold text-[#13948d] text-5xl">
@@ -252,7 +243,7 @@ export const Home = () => {
           </button>
         </div>
         <figure className="w-2/5">
-          <img src="/src/assets/projectImage/img21.png" />
+          <img src="projectImage/img21.png" />
         </figure>
       </div>
 
@@ -277,7 +268,6 @@ export const Home = () => {
           </div>
         </div>
       </div>
-
       <div>
         <Footer />
       </div>
