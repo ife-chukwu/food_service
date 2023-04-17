@@ -35,7 +35,7 @@ export const Company = () => {
         <div>
           <figure className="w-4/5 h-full ">
             <img
-              src="/src/assets/TestingImages/img10.png"
+              src="TestingImages/img10.png"
               alt="Image"
               className="w-full h-full"
             />

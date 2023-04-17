@@ -61,9 +61,9 @@ export const ShowMenuDetail = () => {
                         </div>
                         <button onClick={() => addToCart(item)}>
                           <BsFillCartFill
-                            onClick={() => handleButton(1)}
+                            onClick={() => handleButton(item.id)}
                             className={`${
-                              buttonActive[1].isActive && "text-[#329e99]"
+                              buttonActive[item.id].isActive && "text-[#329e99]"
                             } text-[1.7rem] t`}
                           />
                         </button>
