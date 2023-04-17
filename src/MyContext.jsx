@@ -191,7 +191,7 @@ const MyContext = ({ children }) => {
   const pizzas = [
     {
       id: 1,
-      img: "/src/assets/TestingImages/img9.jpg",
+      img: "TestingImages/img9.jpg",
       name: "Margherita pizza",
       description:
         "A classic pizza that originated in Naples, Italy. It's made with simple ingredients, including tomato sauce.",
@@ -200,7 +200,7 @@ const MyContext = ({ children }) => {
     },
     {
       id: 2,
-      img: "/src/assets/TestingImages/img1.jpg",
+      img: "TestingImages/img1.jpg",
       name: "Pepperoni pizza",
       description:
         "A popular type of pizza in the United States, pepperoni pizza features tomato sauce, mozzarella cheese, and slices .",
@@ -209,7 +209,7 @@ const MyContext = ({ children }) => {
     },
     {
       id: 3,
-      img: "/src/assets/TestingImages/img2.jpg",
+      img: "TestingImages/img2.jpg",
       name: "Hawaiian pizza",
       description:
         "This controversial pizza variety features tomato sauce, mozzarella cheese, ham, and pineapple. ",
@@ -218,7 +218,7 @@ const MyContext = ({ children }) => {
     },
     {
       id: 4,
-      img: "/src/assets/TestingImages/img3.jpg",
+      img: "TestingImages/img3.jpg",
       name: "Chicago-style deep dish pizza",
       description:
         "This pizza variety is famous for its thick, buttery crust and towering layers of toppings. ",
@@ -227,7 +227,7 @@ const MyContext = ({ children }) => {
     },
     {
       id: 5,
-      img: "/src/assets/TestingImages/imgFour.jpg",
+      img: "TestingImages/imgFour.jpg",
       name: "Neapolitan pizza",
       description:
         "Similar to Margherita pizza, Neapolitan pizza is a traditional pizza that originated in Naples. ",
@@ -236,7 +236,7 @@ const MyContext = ({ children }) => {
     },
     {
       id: 6,
-      img: "/src/assets/TestingImages/img5.jpg",
+      img: "TestingImages/img5.jpg",
       name: "Meat lovers pizza",
       description:
         "As the name suggests, this pizza is for meat lovers. It's loaded with toppings like pepperoni, sausage, bacon, and ham. ",
@@ -245,7 +245,7 @@ const MyContext = ({ children }) => {
     },
     {
       id: 7,
-      img: "/src/assets/TestingImages/img6.jpg",
+      img: "TestingImages/img6.jpg",
       name: "Veggie pizza",
       description:
         "For those who prefer a vegetarian option, veggie pizza is a popular choice. ",

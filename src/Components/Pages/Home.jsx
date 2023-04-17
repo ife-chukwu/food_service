@@ -211,7 +211,7 @@ export const Home = () => {
       </div>
       <div className="flex gap-5 w-full items-center justify-center">
         <figure className="w-2/5">
-          <img src="ProjectImage/img14.png" />
+          <img src="projectImage/img14.png" />
         </figure>
         <div className="w-2/5">
           <h1 className="font-extrabold text-[#13948d] text-5xl">
@@ -250,7 +250,7 @@ export const Home = () => {
       <div className="flex  justify-center gap-5 mt-40 mb-10">
         <figure className="w-2/5 h-full">
           <img
-            src="/src/assets/TestingImages/img2.jpg"
+            src="TestingImages/img2.jpg"
             className="w-full -full"
           />
         </figure>
