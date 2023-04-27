@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import { context } from "../MyContext";
+import { HiOutlineSearch } from "react-icons/hi";
+import "animate.css";
 
 export const Navigation = () => {
   const { scroll, cartCount, clearNotification } = useContext(context);
@@ -76,9 +78,20 @@ export const Navigation = () => {
               </button>
             </li>
           </Link>
-          <p className="-ml-[9%] text-white text-[10px] -mt-[7%] bg-[red] px-2 font-bold  rounded-full">
+          <p className="-ml-[8%] text-white text-[10px] animate__animated animate__rubberBand -mt-[7%] bg-[red] px-2 font-bold  rounded-full">
             {cartCount}
-          </p>
+          </p>{" "}
+          <div className="pl-[10%]">
+            <Link to="/search">
+              <HiOutlineSearch
+                className={` ${
+                  scroll
+                    ? "text-[#42f8ef] hover:text-white duration-300 transition"
+                    : "text-[#13948d] hover:text-black duration-300 transition"
+                } text-2xl cursor-pointer `}
+              />
+            </Link>
+          </div>
         </ul>
       </div>
     </div>

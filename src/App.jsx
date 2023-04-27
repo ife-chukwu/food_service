@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./Components/Pages/Home";
-// import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Navigation } from "./Components/Navigation";
 import { Order } from "./Components/Pages/Order";
 import { Company } from "./Components/Pages/Company";
@@ -18,13 +17,12 @@ import { OrderDrink } from "./Components/Pages/OrderDrink";
 import { OrderSides } from "./Components/Pages/OrderSides";
 import { Burgers } from "./Components/Pages/Burgers";
 import { ShowMenuDetail } from "./Components/Pages/ShowMenuDetail";
+import { SearchArea } from "./Components/Pages/SearchArea";
 
 function App() {
-  // const client = new QueryClient();
   return (
     <div>
       <Navigation />
-      {/* <QueryClientProvider client={client}> */}
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path="/" element={<Pizza />} />
@@ -46,10 +44,13 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order/:params" element={<ShowMenuDetail />} />
+        <Route path="/order/order-side/:params" element={<ShowMenuDetail />} />
+        <Route path="/order/burgers/:params" element={<ShowMenuDetail />} />
+        <Route path="/search/:params" element={<ShowMenuDetail />} />
         <Route path="/:params" element={<ShowMenuDetail />} />
+        <Route path="/search" element={<SearchArea />} />
         <Route path="*" element={<h1 className="pt-40">Page not found!</h1>} />
       </Routes>
-      {/* </QueryClientProvider> */}
     </div>
   );
 }

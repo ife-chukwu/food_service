@@ -39,7 +39,6 @@ export const Footer = () => {
                 <li>Style Guide</li>
                 <li>Change log</li>
                 <li>License</li>
-                <li>Webflow University</li>
               </ul>
             </li>
             <li className="text-sm font-bold">

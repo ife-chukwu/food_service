@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 export const Order = () => {
@@ -7,6 +7,9 @@ export const Order = () => {
   const activeHandler = (item) => {
     setActiveItem(item);
   };
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
     <div className="pt-28">
       <div className="py-20 bg-[#def1f1] w-full flex justify-center">
@@ -46,7 +49,7 @@ export const Order = () => {
             } w-3/5 flex justify-center rounded-md py-2 border border-gray-300`}
             onClick={() => activeHandler("order-side")}
           >
-            Side
+            Pizzas
           </Link>
           <Link
             to="/order/order-drink"

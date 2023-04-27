@@ -1,9 +1,13 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useCallback, useMemo } from "react";
 import { useState } from "react";
+import { AiFillHeart } from "react-icons/ai";
+import { BsFillCartFill } from "react-icons/bs";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const context = createContext();
 
-const MyContext = ({ children }) => {
+const MyContext = ({ children, item }) => {
   const [scroll, setScroll] = useState(false);
 
   const handleColor = () => {
@@ -14,67 +18,128 @@ const MyContext = ({ children }) => {
     }
   };
   window.addEventListener("scroll", handleColor);
+
   // cart and likes update
 
-  const [buttonActive, setButtonActive] = useState([
-    {
-      isActive: false,
-    },
-    {
-      isActive: false,
-    },
-    {
-      isActive: false,
-    },
-  ]);
-
+  const [ordered, setOrdered] = useState([]);
+  const [likedItems, setLikedItems] = useState([]);
   const [likes, setLikes] = useState(null);
 
-  const handleButton = (index) => {
-    const isButtonTrue = [...buttonActive];
-    isButtonTrue[index].isActive = !isButtonTrue[index].isActive;
-    setButtonActive(isButtonTrue);
- 
-    if (isButtonTrue[0].isActive) {
-      setLikes(likes + 1);
+  const toggleLike = useCallback(
+    (itemId) => {
+      if (likedItems.includes(itemId)) {
+        setLikedItems(likedItems.filter((id) => id !== itemId));
+        setLikes(likes + 1);
+      } else {
+        setLikedItems([...likedItems, itemId]);
+        setLikes(null);
+      }
+    },
+    [likedItems]
+  );
+
+  const toggleOrder = useCallback(
+    (itemId) => {
+      if (ordered.includes(itemId)) {
+        setOrdered(likedItems.filter((id) => id !== itemId));
+      } else {
+        setOrdered([...ordered, itemId]);
+      }
+    },
+    [ordered]
+  );
+
+  const [cartItems, setCartItems] = useState([]);
+  const [cartCount, setCartCount] = useState(null);
+  const [cartReminder, setCartReminder] = useState("");
+  const [cartSuccess, setCartSuccess] = useState(false);
+  const [cartClicked, setCartClicked] = useState({});
+
+  const handleCart = (product) => {
+    const existingItem = cartItems.find(
+      (cartItem) => cartItem.id === product.id
+    );
+    setTimeout(() => {
+      const message = "You already have this item in  your cart";
+      if (existingItem) {
+        setCartReminder(message);
+      } else {
+        setCartItems((prevCartItems) => [
+          ...prevCartItems,
+          { ...product, likes: 1 },
+        ]);
+        setCartSuccess(true);
+      }
+      setCartClicked((prevButtonClicked) => ({
+        ...prevButtonClicked,
+        [product.id]: true,
+      }));
+    }, 500);
+    if (cartItems.length >= 0) {
+      setCartCount(cartCount + 1);
     } else {
-      setLikes(null);
+      setCartCount(null);
     }
-    if (likes) {
-      setLikes(likes);
+    if (existingItem) {
+      setCartCount(cartCount);
     }
+    setTimeout(() => {
+      setCartReminder("");
+      setCartSuccess(false);
+    }, 2000);
   };
 
   const clearNotification = () => {
     setCartCount(null);
   };
 
-  const [cartCount, setCartCount] = useState(null);
+  const [input, setInput] = useState("");
+  const [message, setMessage] = useState("");
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    console.log(input);
+    setMessage("");
+  };
+  const clearInput = () => {
+    setInput("");
 
-  const [cartItems, setCartItems] = useState([]);
-  const [cartReminder, setCartReminder] = useState("");
-
-  const addToCart = (item) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
-    const message = "You already have this in you cart";
-    setTimeout(() => {
-      if (existingItem) {
-        setCartReminder(message);
-        return cartItems;
-      } else {
-        const newCart = [...cartItems, item];
-        setCartItems(newCart);
-
-        setCartCount(cartCount + 1);
-
-        return newCart;
-      }
-    }, 500);
-    setTimeout(() => {
-      setCartReminder("");
-    }, 5000);
+    if (input.length <= 0) {
+      setMessage("No Input Provided");
+    }
   };
 
+  const deleteCartItem = (id) => {
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item.id !== id)
+    );
+    setCartClicked((prevButtonClicked) => ({
+      ...prevButtonClicked,
+      [id]: false,
+    }));
+  };
+  const options = useMemo(
+    () => ({
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "72baf9339amshbccae3d64e97ac0p183399jsnbf6f71fcb2e4",
+        "X-RapidAPI-Host": "pizza-and-desserts.p.rapidapi.com",
+      },
+    }),
+    []
+  );
+
+  const fetchData = useMemo(
+    () => async () => {
+      const res = await axios.get(
+        "https://pizza-and-desserts.p.rapidapi.com/pizzas",
+        options
+      );
+      return res.data;
+    },
+    [options]
+  );
+
+  const { data, error, isLoading } = useQuery(["id"], fetchData);
   const menuItems = [
     {
       id: "1",
@@ -86,6 +151,9 @@ const MyContext = ({ children }) => {
         "Hawaiian Pizza: This pizza usually contains ham, pineapple, and cheese on a tomato sauce base. It is typically high in calories, saturated fat, and sodium.",
       imageUrl:
         "https://media.istockphoto.com/id/1144856949/photo/pepperoni-pizza-with-mozzarella-cheese-salami-pepper-spices-and-fresh-spinach-italian-pizza.jpg?s=612x612&w=0&k=20&c=uJDI0uBinkgXl_VwLQDyiwNWfGRFguyzRuaGO8iF5qY=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 9.2,
     },
     {
       id: "2",
@@ -97,6 +165,9 @@ const MyContext = ({ children }) => {
         "Mango Tango Smoothie: This smoothie is typically made with mango, banana, yogurt, and/or milk. It is generally a good source of vitamins and minerals, but may also contain added sugars if sweetened.",
       imageUrl:
         "https://media.istockphoto.com/id/175252833/photo/mango-and-pineapple-smoothie.jpg?s=612x612&w=0&k=20&c=Hca2ikIlmECFm5C4t8x7cK4WQefr8l-t1gS89u2IrK4=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 5.2,
     },
     {
       id: "3",
@@ -108,6 +179,9 @@ const MyContext = ({ children }) => {
         "Classic Burger: A classic burger typically includes a beef patty, lettuce, tomato, onion, pickles, and condiments such as ketchup or mayonnaise. It is typically high in calories, fat, and sodium.",
       imageUrl:
         "https://images.unsplash.com/photo-1535569807835-01fd773379ad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Q2xhc3NpYyUyMEJ1cmdlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 10.2,
     },
     {
       id: "4",
@@ -119,6 +193,9 @@ const MyContext = ({ children }) => {
         "Pepperoni Pizza: This pizza usually contains pepperoni, cheese, and tomato sauce. It is typically high in calories, saturated fat, and sodium.",
       imageUrl:
         "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8UGVwcGVyb25pJTIwUGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 15.2,
     },
     {
       id: "5",
@@ -130,6 +207,9 @@ const MyContext = ({ children }) => {
         "Strawberry Lemonade: This beverage is typically made with lemon juice, water, sugar, and fresh or frozen strawberries. It may also contain added sugars or sweeteners.",
       imageUrl:
         "https://images.unsplash.com/photo-1573500883698-e3ef47a95feb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8U3RyYXdiZXJyeSUyMExlbW9uYWRlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 7.2,
     },
     {
       id: "6",
@@ -141,6 +221,9 @@ const MyContext = ({ children }) => {
         "Spicy Chicken Burger: This burger usually includes a chicken patty seasoned with spices, lettuce, tomato, onion, and condiments. It is typically high in calories and sodium, depending on the preparation method and ingredients used.",
       imageUrl:
         "https://media.istockphoto.com/id/1394794108/photo/sweet-and-sour-crispy-fried-chicken-burger-with-kimchi.jpg?s=612x612&w=0&k=20&c=Kti39_KZP5Fzpw3dqN_zCTZ5G4ljBOvcWjmQb4hCvLc=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 9.2,
     },
     {
       id: "7",
@@ -152,6 +235,9 @@ const MyContext = ({ children }) => {
         "Vegetable Pizza: This pizza usually includes a variety of vegetables such as bell peppers, onions, mushrooms, and olives on a tomato sauce and cheese base. It can be a good source of vitamins and minerals, but may also be high in sodium and calories depending on the toppings and crust.",
       imageUrl:
         "https://media.istockphoto.com/id/1151447052/photo/tasty-supreme-pizza-with-olives-peppers-onions-and-sausage.jpg?s=612x612&w=0&k=20&c=6m17pHx7VmeR2jCYmgbVCMTUgejpzFsB4Sx654fPBnM=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 8.2,
     },
     {
       id: "8",
@@ -163,17 +249,23 @@ const MyContext = ({ children }) => {
         "Blueberry Smoothie: This smoothie typically includes blueberries, banana, yogurt, and/or milk. It is generally a good source of vitamins and minerals, but may also contain added sugars if sweetened.",
       imageUrl:
         "https://media.istockphoto.com/id/1355866215/photo/moon-milk-pink-matcha-with-rose-petals-transparent-cup-with-trendy-vegan-whipped-tea-on-white.jpg?s=612x612&w=0&k=20&c=Hx3TPMhtRu1LxmqvyZKwlUBIcb1LhHwwpCiIO_YI3q8=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 12.2,
     },
     {
       id: "9",
-      name: "BBQ Burger",
+      name: "BBQ Burger fried",
       type: "burger",
       description:
         "Our BBQ burger is made with a juicy beef patty, topped with crispy onion rings and smoky BBQ sauce. Served on a soft sesame seed bun.",
       extraInfo:
         "BBQ Burger: This burger typically includes a beef patty with BBQ sauce, bacon, cheese, lettuce, and tomato. It is typically high in calories, fat, and sodium.",
       imageUrl:
-        "https://media.istockphoto.com/id/642884888/photo/home-made-hamburger-with-lettuce-and-cheese.jpg?s=612x612&w=0&k=20&c=HsQ3rKPT5VFKeyJIU4uVDb9LAAN6JYlZNi6fUvQcv50=",
+        "https://media.istockphoto.com/id/972855448/photo/hamburgers-on-the-bbq.jpg?b=1&s=170667a&w=0&k=20&c=4yr3VadDgh6Enbph2KwTcEX31TsLJAospmT8isDTLqw=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 9.2,
     },
     {
       id: "10",
@@ -185,83 +277,230 @@ const MyContext = ({ children }) => {
         "Meat Lovers Pizza: This pizza usually contains various meats such as sausage, pepperoni, ham, and bacon on a tomato sauce and cheese base. It is typically high in calories, saturated fat, and sodium.",
       imageUrl:
         "https://media.istockphoto.com/id/837568064/photo/hot-true-italian-pizza-pepperoni-pizza-on-board-on-white-wooden-table-with-decoration-copy.jpg?s=612x612&w=0&k=20&c=Yoguiracu9DA01ikte9H9HtCJDgKoAozOV2k91UHhK4=",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+      price: 9.5,
     },
   ];
 
   const pizzas = [
     {
       id: 1,
-      img: "TestingImages/img9.jpg",
       name: "Margherita pizza",
+      img: "https://media.istockphoto.com/id/516247125/photo/prosciutto-and-arugula-pizza.jpg?s=612x612&w=0&k=20&c=6MXT4MQ-4G_t7sG3L-JmHOs2xAQPsCYJGjW2r7Au6Yo=",
       description:
         "A classic pizza that originated in Naples, Italy. It's made with simple ingredients, including tomato sauce.",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 8.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 2,
-      img: "TestingImages/img1.jpg",
       name: "Pepperoni pizza",
+      img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8UGVwcGVyb25pJTIwcGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+
       description:
         "A popular type of pizza in the United States, pepperoni pizza features tomato sauce, mozzarella cheese, and slices .",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 14.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 3,
-      img: "TestingImages/img2.jpg",
       name: "Hawaiian pizza",
+
+      img: "https://media.istockphoto.com/id/1349383878/photo/hawaiian-pizza-with-ham-and-pineapple.jpg?s=612x612&w=0&k=20&c=P7rJNWhe1utWDDXUa4ZyZdnl4C5he8jfWD-dKf_hefI=",
       description:
         "This controversial pizza variety features tomato sauce, mozzarella cheese, ham, and pineapple. ",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 11.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 4,
-      img: "TestingImages/img3.jpg",
       name: "Chicago-style deep dish pizza",
+
+      img: "https://media.istockphoto.com/id/1365238572/photo/slice-of-melted-cheese-pizza.jpg?s=612x612&w=0&k=20&c=7l2MxoRHyMFTC8TBz_LQ1RmtTiN8cRPsM356ds0H9-8=",
       description:
         "This pizza variety is famous for its thick, buttery crust and towering layers of toppings. ",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 7.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 5,
-      img: "TestingImages/imgFour.jpg",
       name: "Neapolitan pizza",
+
+      img: "https://images.unsplash.com/photo-1598023696416-0193a0bcd302?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8TmVhcG9saXRhbiUyMHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
       description:
         "Similar to Margherita pizza, Neapolitan pizza is a traditional pizza that originated in Naples. ",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 9.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 6,
-      img: "TestingImages/img5.jpg",
       name: "Meat lovers pizza",
+
+      img: "https://media.istockphoto.com/id/1095961692/photo/close-up-italian-pizza-about-cheese-it-stick-selective-focus.jpg?s=612x612&w=0&k=20&c=8C0kYgoTt026xam3qgOjakBkWg1H_y_V8hjP_PX7fDo=",
       description:
         "As the name suggests, this pizza is for meat lovers. It's loaded with toppings like pepperoni, sausage, bacon, and ham. ",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 34.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 7,
-      img: "TestingImages/img6.jpg",
       name: "Veggie pizza",
+
+      img: "https://media.istockphoto.com/id/808514338/photo/supreme-pizza.jpg?s=612x612&w=0&k=20&c=DgZqg0nuvzKxo3wk46QoV3cPNKgRfkty0LHqtjx0ubI=",
       description:
         "For those who prefer a vegetarian option, veggie pizza is a popular choice. ",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 12.2,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
     {
       id: 8,
-      img: "/src/assets/TestingImages/img8.jpg",
       name: "Veggie tomato pizza",
+
+      img: "https://media.istockphoto.com/id/155150740/photo/pizza-margherita.jpg?s=612x612&w=0&k=20&c=sOTL7RlChJQj_MNWutVqRBYDOrxVAlcn-nTryQCF1bc=",
       description:
         "This pizza variety is famous for its thick, buttery crust and towering layers of toppings. ",
       oder: "add to cart",
-      price: "$9.20 USSD",
+      price: 5.6,
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
     },
   ];
+
+  const burgers = [
+    {
+      id: 1,
+      name: "Classic Burger",
+      image:
+        "https://media.istockphoto.com/id/610747100/photo/tasty-grilled-burger-with-lettuce-and-mayonnaise-rustic-wooden-table.jpg?b=1&s=170667a&w=0&k=20&c=1unW2L-hE4NW-kgsIkBL-fS6zY_SlvwlWhb7qao8QW8=",
+      description:
+        "A juicy beef patty with lettuce, tomato, and pickles on a sesame seed bun.",
+      price: 9.99,
+      recipe: "https://www.allrecipes.com/recipe/214894/classic-burger/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 2,
+      name: "Bacon Cheeseburger",
+      image:
+        "https://media.istockphoto.com/id/1398630614/photo/bacon-cheeseburger-on-a-toasted-bun.jpg?b=1&s=170667a&w=0&k=20&c=Aq7Dg29n3DDE3gqgT2cWSh9LYxZnr-8SFu0crRQxArA=",
+      description:
+        "A classic burger with crispy bacon and melted cheddar cheese.",
+      price: 11.99,
+      recipe: "https://www.allrecipes.com/recipe/219077/bacon-cheeseburgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 3,
+      name: "Mushroom Swiss Burger",
+      image:
+        "https://media.istockphoto.com/id/500549324/photo/mushroom-swiss-burger.jpg?b=1&s=170667a&w=0&k=20&c=gR59AAzRzOkwSDxLL3RCTDeS-PLx0NuzY8evchln2Zk=",
+      description:
+        "A savory burger with sautéed mushrooms and melted Swiss cheese.",
+      price: 12.99,
+      recipe:
+        "https://www.allrecipes.com/recipe/220533/mushroom-swiss-burgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 4,
+      name: "BBQ Burger",
+      image:
+        "https://media.istockphoto.com/id/1051820324/photo/beef-burger-for-hamburger-on-barbecue-flame-grill.jpg?b=1&s=170667a&w=0&k=20&c=UT91PB6xd8doPqSExAD-MzqmwZ_rU_OLGidO_zCqx4Q=",
+      description:
+        "A smoky burger topped with crispy onion rings and tangy BBQ sauce.",
+      price: 10.99,
+      recipe: "https://www.allrecipes.com/recipe/220977/bbq-burgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 5,
+      name: "Guacamole Burger",
+      image:
+        "https://media.istockphoto.com/id/181142991/photo/the-guacamole-bacon-burger.jpg?b=1&s=170667a&w=0&k=20&c=D4pMzyQeNo0g9EqrlK58Tu2JFOJZA2zlSMwuzFvsheg=",
+      description: "A fresh burger with homemade guacamole and salsa.",
+      price: 13.99,
+      recipe: "https://www.allrecipes.com/recipe/14231/guacamole-burger/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 6,
+      name: "Spicy Jalapeño Burger",
+      image:
+        "https://media.istockphoto.com/id/1423188087/photo/cheesy-beef-taco-pie.jpg?b=1&s=170667a&w=0&k=20&c=sjK766MndVB4owOxgtXuKR2iUJP8gQVy8prWT9a1LJw=",
+      description: "A fiery burger with jalapeño peppers and spicy mayo.",
+      price: 11.99,
+      recipe:
+        "https://www.allrecipes.com/recipe/256335/spicy-jalapeno-burgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 7,
+      name: "Veggie Burger",
+      image:
+        "https://media.istockphoto.com/id/1412706588/photo/hamburger-on-a-handmade-cutting-board-dark-mood-background.jpg?b=1&s=170667a&w=0&k=20&c=Q8NXnNOFd6gHpCleeES2PlKsZqe0-2W7d6RzuNSmsFQ=",
+      description: "A plant-based burger with a homemade black bean patty.",
+      price: 9.99,
+      recipe:
+        "https://www.allrecipes.com/recipe/220281/homemade-black-bean-veggie-burgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 8,
+      name: "Double Cheeseburger",
+      image:
+        "https://media.istockphoto.com/id/468164481/photo/traditional-homestyle-burger.jpg?b=1&s=170667a&w=0&k=20&c=P7AH_f1KFPpxKZTctfZmY8FX4etxzFI93LvTYoMJWv8=",
+      description: "A burger with two juicy beef patties and melted cheese.",
+      price: 13.99,
+      recipe: "https://www.allrecipes.com/recipe/219288/double-cheeseburgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 9,
+      name: "Fried Egg Burger",
+      image:
+        "https://media.istockphoto.com/id/1312261302/photo/ham-bacon-egg-burger.jpg?b=1&s=170667a&w=0&k=20&c=QJ9XeUnqE0Zf0obWXnN1UtLGWRHpLEkxLiP4sQY61GA=",
+      description: "A hearty burger with a sunny-side-up egg and bacon.",
+      price: 12.99,
+      recipe: "https://www.allrecipes.com/recipe/268114/fried-egg-burgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+    {
+      id: 10,
+      name: "Pulled Pork Burger",
+      image:
+        "https://media.istockphoto.com/id/526283108/photo/homemade-vegan-pulled-jackfruit-bbq-sandwich.jpg?s=612x612&w=0&k=20&c=34PVpg8X_pMr1JpUDMgvvOb8jPTu7h0jH7Qbl6PhQRM=",
+      description: "A hearty burger with a sunny-side-up egg and bacon.",
+      price: 10.99,
+      recipe: "https://www.allrecipes.com/recipe/268114/fried-egg-burgers/",
+      icon1: <BsFillCartFill />,
+      icon2: <AiFillHeart />,
+    },
+  ];
+
   return (
     <div>
       <context.Provider
@@ -269,14 +508,27 @@ const MyContext = ({ children }) => {
           scroll,
           menuItems,
           pizzas,
-          addToCart,
           cartItems,
           likes,
-          buttonActive,
-          handleButton,
           cartCount,
           cartReminder,
           clearNotification,
+          handleCart,
+          ordered,
+          toggleOrder,
+          cartItems,
+          cartSuccess,
+          cartClicked,
+          toggleLike,
+          likedItems,
+          deleteCartItem,
+          data,
+          isLoading,
+          error,
+          input,
+          message,
+          handleChange,
+          burgers,
         }}
       >
         {children}

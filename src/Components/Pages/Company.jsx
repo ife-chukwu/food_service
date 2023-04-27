@@ -42,10 +42,10 @@ export const Company = () => {
           </figure>
         </div>
       </div>
-      <div className="w-full bg-black/50 backdrop-blur-2xl">
-        <div className="w-full h-[20em] mt-20  mix-blend-overlay bg-[url('/src/assets/ProjectImage/img7.png')]"></div>
+      <div className=" bg-black/50 backdrop-blur-2xl">
+        <div className="w-full  h-[20em] mt-20 mix-blend-overlay bg-[url('projectImage/img7.png')] bg-fixed"></div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

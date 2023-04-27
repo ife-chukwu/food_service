@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { context } from "../../MyContext";
 
 export const Pizza = () => {
-  const { pizzas, buttonActive } = useContext(context);
+  const { pizzas, handleCart, cartClicked } = useContext(context);
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 gap-y-10 my-10">
-        {pizzas.map((pizza, index) => {
+        {pizzas.map((pizza) => {
           return (
             <div key={pizza.id} className="flex justify-center">
               <div className="w-4/5 py-5 bg-black/10 h-full px-5 rounded shadow-black/20 shadow-md">
@@ -16,7 +16,7 @@ export const Pizza = () => {
                     <Link to={`${pizza.name}`}>
                       <img
                         src={pizza.img}
-                        alt="Image"
+                        alt={pizza.name}
                         className="w-full h-full rounded"
                       />{" "}
                     </Link>
@@ -33,8 +33,15 @@ export const Pizza = () => {
                       <button className="border rounded border-black/10 px-5 py-1 text-sm">
                         {pizza.id}
                       </button>
-                      <button className="border rounded border-black/10 px-7 py-1 text-sm bg-[#13948d] text-white">
-                        { pizza.id === buttonActive[2].isActive? "Ordered" : "Order"}
+                      <button onClick={() => handleCart(pizza)}>
+                        <p
+                          className={`${
+                            cartClicked[pizza.id] &&
+                            "text-[#329e99] animate__animated animate__shakeX"
+                          } text-sm text-white px-5 rounded-sm py-1 bg-[#329e99] `}
+                        >
+                          Add To Cart
+                        </p>
                       </button>
                     </div>
                   </div>

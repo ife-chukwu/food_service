@@ -3,38 +3,9 @@ import { Link } from "react-router-dom";
 import { RiStarSFill } from "react-icons/ri";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
-// import { useQuery } from "@tanstack/react-query";
-// import axios from "axios";
+
 
 export const Home = () => {
-  //   const options = useMemo(
-  //     () => ({
-  //       method: "GET",
-  //       headers: {
-  //         "X-RapidAPI-Key": "72baf9339amshbccae3d64e97ac0p183399jsnbf6f71fcb2e4",
-  //         "X-RapidAPI-Host": "pizza-and-desserts.p.rapidapi.com",
-  //       },
-  //     }),
-  //     []
-  //   );
-
-  //   const fetchData = useMemo(
-  //     () => async () => {
-  //       const res = await axios.get(
-  //         // "https://pizza-and-desserts.p.rapidapi.com/pizzas",
-  //         options
-  //       );
-  //       return res.data;
-  //     },
-  //     [options]
-  //   );
-
-  //   const { data, isError } = useQuery(["id"], fetchData);
-  //   if (isError) {
-  //     console.log("Unavailable");
-  //     return <h1>Unavailable</h1>;
-  //   }
-  //   console.log(data);
   const [activeItem, setActiveItem] = useState("pizza");
 
   const activeHandler = (item) => {
@@ -222,9 +193,12 @@ export const Home = () => {
             super easy to use and you can choose from a variety of toppings to
             make your perfect pie.
           </p>
-          <button className="mt-10 mb-5 bg-[#13948d] text-white rounded px-7 py-3">
-            See our FAQ
-          </button>
+          <Link to="/faq">
+            {" "}
+            <button className="mt-10 mb-5 bg-[#13948d] text-white rounded px-7 py-3">
+              See our FAQ
+            </button>
+          </Link>
         </div>
       </div>
       <div className="flex gap-5 w-full items-center justify-center mt-20">
@@ -249,10 +223,7 @@ export const Home = () => {
 
       <div className="flex  justify-center gap-5 mt-40 mb-10">
         <figure className="w-2/5 h-full">
-          <img
-            src="TestingImages/img2.jpg"
-            className="w-full -full"
-          />
+          <img src="TestingImages/img2.jpg" className="w-full -full" />
         </figure>
         <div className="w-2/5 h-[22.3em] bg-[#13948d] mb-20">
           <div className="w-full h-full flex items-center justify-center ">
