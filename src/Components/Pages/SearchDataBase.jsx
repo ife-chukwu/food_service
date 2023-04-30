@@ -239,7 +239,7 @@ const searchDataBase = [
   },
   {
     id: "19",
-    name: "Classic Burger",
+    name: "Classy Burger",
     image:
       "https://media.istockphoto.com/id/610747100/photo/tasty-grilled-burger-with-lettuce-and-mayonnaise-rustic-wooden-table.jpg?b=1&s=170667a&w=0&k=20&c=1unW2L-hE4NW-kgsIkBL-fS6zY_SlvwlWhb7qao8QW8=",
     description:

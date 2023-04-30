@@ -126,7 +126,6 @@ export const ShowMenuDetail = () => {
                     <h1 className="w-full flex justify-center  mb-5 font-bold text-[#13948d] text-xl">
                       About {item.name}
                     </h1>
-
                     <div className="w-full flex justify-center  mb-10">
                       <p className="text-sm text-gray-600 text-center w-3/5">
                         {item.description}
@@ -146,17 +145,19 @@ export const ShowMenuDetail = () => {
                 <p className="w-full flex text-[#13948d] pb-5 justify-center font-extrabold text-2xl log0 ">
                   {item.name}
                 </p>
-                <div className="flex justify-center w-full h-auto ">
-                  <figure className="w-4/5 h-full">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="h-full w-full rounded-lg"
-                    />
-                  </figure>
+                <div className=" w-full h-auto ">
+                  <div className="flex justify-center">
+                    <figure className="w-3/5 h-full">
+                      <img
+                        src={item.imageUrl}
+                        alt={item.name}
+                        className="h-full w-full rounded-lg"
+                      />
+                    </figure>
+                  </div>
                 </div>
                 <div className="">
-                  <div className="w-full justify-center flex gap-[45%] mt-5">
+                  <div className="w-full justify-center flex gap-[30%] mt-5">
                     <div className="flex gap-5">
                       <div className="flex items-center h-full gap-1">
                         <button
@@ -335,7 +336,7 @@ export const ShowMenuDetail = () => {
             );
           })}
 
-        <div>
+        {/* <div>
           {data
             .filter((item) => item.name === params)
             .map((item) => {
@@ -433,7 +434,7 @@ export const ShowMenuDetail = () => {
                 </div>
               );
             })}
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

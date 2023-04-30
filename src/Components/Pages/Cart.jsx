@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import { context } from "../../MyContext";
 import "animate.css";
 
@@ -6,7 +6,9 @@ export const Cart = () => {
   const { cartItems, deleteCartItem, ordered, toggleOrder } =
     useContext(context);
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
     <div className="w-full pt-40">
       {cartItems.length <= 0 && (
@@ -29,7 +31,7 @@ export const Cart = () => {
                     className="w-full h-full rounded-md"
                   />
                 </figure>
-                <div className="flex absolute pl-[22%] pt-3">
+                <div className="flex md:absolute pl-[22%] pt-3">
                   <p className="px-5 rounded-xl bg-[#13948d] text-white">
                     ${item.price}
                   </p>

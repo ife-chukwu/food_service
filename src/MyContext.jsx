@@ -86,6 +86,7 @@ const MyContext = ({ children, item }) => {
     setTimeout(() => {
       setCartReminder("");
       setCartSuccess(false);
+      setMessage("")
     }, 2000);
   };
 
@@ -106,6 +107,9 @@ const MyContext = ({ children, item }) => {
     if (input.length <= 0) {
       setMessage("No Input Provided");
     }
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
   };
 
   const deleteCartItem = (id) => {
@@ -117,29 +121,29 @@ const MyContext = ({ children, item }) => {
       [id]: false,
     }));
   };
-  const options = useMemo(
-    () => ({
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "72baf9339amshbccae3d64e97ac0p183399jsnbf6f71fcb2e4",
-        "X-RapidAPI-Host": "pizza-and-desserts.p.rapidapi.com",
-      },
-    }),
-    []
-  );
+  // const options = useMemo(
+  //   () => ({
+  //     method: "GET",
+  //     headers: {
+  //       "X-RapidAPI-Key": "72baf9339amshbccae3d64e97ac0p183399jsnbf6f71fcb2e4",
+  //       "X-RapidAPI-Host": "pizza-and-desserts.p.rapidapi.com",
+  //     },
+  //   }),
+  //   []
+  // );
 
-  const fetchData = useMemo(
-    () => async () => {
-      const res = await axios.get(
-        "https://pizza-and-desserts.p.rapidapi.com/pizzas",
-        options
-      );
-      return res.data;
-    },
-    [options]
-  );
+  // const fetchData = useMemo(
+  //   () => async () => {
+  //     const res = await axios.get(
+  //       "https://pizza-and-desserts.p.rapidapi.com/pizzas",
+  //       options
+  //     );
+  //     return res.data;
+  //   },
+  //   [options]
+  // );
 
-  const { data, error, isLoading } = useQuery(["id"], fetchData);
+  // const { data, error, isLoading } = useQuery(["id"], fetchData);
   const menuItems = [
     {
       id: "1",
@@ -298,7 +302,7 @@ const MyContext = ({ children, item }) => {
     {
       id: 2,
       name: "Pepperoni pizza",
-      img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8UGVwcGVyb25pJTIwcGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+      img: "https://media.istockphoto.com/id/1373129580/photo/pepperoni-pizza.jpg?s=612x612&w=0&k=20&c=HVJV-9dph5VNY2GEp1S812qcOdhGizCGacO8pt_HQVk=",
 
       description:
         "A popular type of pizza in the United States, pepperoni pizza features tomato sauce, mozzarella cheese, and slices .",
@@ -384,7 +388,7 @@ const MyContext = ({ children, item }) => {
   const burgers = [
     {
       id: 1,
-      name: "Classic Burger",
+      name: "Classy Burger",
       image:
         "https://media.istockphoto.com/id/610747100/photo/tasty-grilled-burger-with-lettuce-and-mayonnaise-rustic-wooden-table.jpg?b=1&s=170667a&w=0&k=20&c=1unW2L-hE4NW-kgsIkBL-fS6zY_SlvwlWhb7qao8QW8=",
       description:
@@ -508,7 +512,6 @@ const MyContext = ({ children, item }) => {
           scroll,
           menuItems,
           pizzas,
-          cartItems,
           likes,
           cartCount,
           cartReminder,
@@ -522,13 +525,14 @@ const MyContext = ({ children, item }) => {
           toggleLike,
           likedItems,
           deleteCartItem,
-          data,
-          isLoading,
-          error,
+          // data,
+          // isLoading,
+          // error,
           input,
           message,
           handleChange,
           burgers,
+          clearInput,
         }}
       >
         {children}

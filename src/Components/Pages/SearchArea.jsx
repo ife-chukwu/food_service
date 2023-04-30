@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { context } from "../../MyContext";
 import { MdClear } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -8,8 +8,12 @@ export const SearchArea = () => {
     useContext(context);
   // const allData = menuItems.concat(pizzas, data);
   console.log(searchDataBase);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
-    <div className="pt-[10%] w-full">
+    <div className="md:pt-[10%] pt-[40%] w-full">
       <div className="flex justify-center w-full items-center">
         <form className="w-full flex justify-center ">
           <input
@@ -17,7 +21,7 @@ export const SearchArea = () => {
             placeholder="Search..."
             onChange={handleChange}
             value={input}
-            className="w-3/5 flex outline-none py-2 rounded-xl px-5 text-black/50 text-lg font-bold bg-black/10"
+            className="w-4/5 md:w-3/5 flex outline-none py-2 rounded-xl px-5 text-black/50 text-lg font-bold bg-black/10"
           />
         </form>
         <MdClear
@@ -41,20 +45,21 @@ export const SearchArea = () => {
           .map((item) => {
             return (
               <div key={item.id}>
-                <p className="flex justify-center font-bold text-black/50 text-lg">
-                  {item.name}
-                </p>
-                <div className="flex w-full justify-center h-full">
-                  <Link to={`${item.name}`}>
-                    <figure className=" h-4/5">
+                <Link to={`${item.name}`}>
+                  <div className="flex justify-center h-full">
+                    <figure className="w-4/5 h-4/5">
                       <img
                         src={item.imageUrl || item.img || item.image}
                         alt={item.name}
                         className="rounded-lg w-full h-full"
                       />
+                      <figcaption className="flex justify-center  text-black/50">
+                        {" "}
+                        {item.name}
+                      </figcaption>
                     </figure>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               </div>
             );
           })}
